@@ -13,8 +13,8 @@ app.get('/', function(req, res){
  res.render("firefighterlist");
 });
 
-app.get('/about', function(req, res){
- res.render("individual");
+app.get('/n2list', function(req, res){
+ res.render("n2list");
 });
 
 // custom 404 page
