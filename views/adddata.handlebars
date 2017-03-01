@@ -1,0 +1,31 @@
+<div class="container">		
+	<form action="/adddata" method="POST" id="form2">	
+		<legend>add data</legend>
+		<div class="form-group"><label for="ffselect" name="ffselect">select FF</label><select name="selectff" id="selectff" class="form-control">
+			{{#each firefighter}}
+				<option value="{{this.name}}">{{this.name}}</option>
+			{{/each}}
+		</select></div>
+		<div class="row">
+			<div class="col-sm-6 form-group"><label for="flydata">Flyer</label><input type="text" id="flydata" class="form-control" name="flydata"></div>
+			<div class="col-sm-6 form-group"><label for="flydrv">Flyer Driver</label><input type="text" id="flydrv" class="form-control" name="flydrv"></div>
+		</div>
+		<div class="row">
+			<div class="col-sm-6 form-group"><label for="rundata">Runner</label><input type="text" id="rundata" class="form-control" name="rundata"></div>
+			<div class="col-sm-6 form-group"><label for="rundrv">Runner Driver</label><input type="text" id="rundrv" class="form-control" name="rundrv"></div>
+		</div>
+		<div class="row">
+			<div class="col-sm-6 form-group"><label for="rp1data">Rescue Pump</label><input type="text" id="rp1data" class="form-control" name="rp1data"></div>
+			<div class="col-sm-6 form-group"><label for="rp1drv">Rescue Pump Driver</label><input type="text" id="rp1drv" class="form-control" name="rp1drv"></div>
+		</div>
+		<div class="row">
+			<div class="col-sm-6 form-group"><label for="rescuedata">Heavy Rescue</label><input type="text" id="rescuedata" class="form-control" name="rescuedata"></div>
+			<div class="col-sm-6 form-group"><label for="rescuedrv">Heavy Rescue Driver</label><input type="text" id="rescuedrv" class="form-control" name="rescuedrv"></div>
+		</div>
+		<div class="row">
+			<div class="col-sm-6 form-group"><label for="lp1data">Bronto</label><input type="text" id="lp1data" class="form-control" name="lp1data"></div>
+			<div class="col-sm-6 form-group"><label for="lp1drv">Bronto Driver</label><input type="text" id="lp1drv" class="form-control" name="lp1drv"></div>
+		</div>
+		<button class="btn btn-primary" type="submit">Submit</button>
+	</form>
+</div>

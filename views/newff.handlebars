@@ -1,1 +1,21 @@
-<h1>form to add new fire fighter</h1>
+<div class="container">
+	<h1>Add a fire fighter</h1>
+	<form action="/addff" id="form1" method="POST">
+		<div class="form-group"><label for="nameTxt">Fire Fighter Name</label><input type="text" id="nameText" class="form-control" name="name"></div>
+		<div class="form-group"><label for="serviceNumberText">Service Number</label><input type="text" id="serviceNumberText" class="form-control" name="serviceNumber"></div>
+		<div class="form-group"><label for="rankSelect">Rank</label><select name="rank" id="rankSelect" class="form-control">
+				<option value="Level 1">Level 1</option>
+				<option value="QF">QF</option>
+				<option value="SF">SF</option>
+				<option value="SFF">SFF</option>
+				<option value="LF">LF</option>
+			</select></div>
+		<fieldset class="form-group">
+			<legend>Tick all that apply</legend>
+			<div class="form-check"><label class="form-check-label"><input type="checkbox" class="form-check-input" name="md" value="true" id="mdChkBox">Motor Driver</input></label></div>
+			<div class="form-check"><label class="form-check-label"><input type="checkbox" class="form-check-input" name="rescue" value="true" id="rescueChkBox">Rescue</input></label></div>
+			<div class="form-check"><label class="form-check-label"><input type="checkbox" class="form-check-input" name="aerial" value="true" id="aerialChkBox">Aerial</input></label></div>
+		</fieldset>		
+		<button class="btn btn-primary" type="submit">Submit</button>
+	</form>
+</div>
