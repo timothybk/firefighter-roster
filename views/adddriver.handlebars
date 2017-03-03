@@ -1,0 +1,25 @@
+<div class="container">		
+	<form action="/adddriver" method="POST" id="form2">	
+		<legend>add driver</legend>
+		<div class="form-group"><label for="ffselect" name="ffselect">select FF</label><select name="selectff" id="selectff" class="form-control">
+			{{#each firefighter}}
+				<option value="{{this.name}}">{{this.name}}</option>
+			{{/each}}
+		</select></div>
+		<div class="row">
+			<div class="col-sm-4 form-group">
+				<label for="flydrive">Flyer driver</label>
+				<input type="text" id="flydrive" class="form-control" name="flydrive">
+			</div>
+			<div class="col-sm-4 form-group">
+				<label for="rundrive">Runner driver</label>
+				<input type="text" id="rundrive" class="form-control" name="rundrive">
+			</div>		
+			<div class="col-sm-4 form-group">
+				<label for="rp1drive">Flyer 3</label>
+				<input type="text" id="rp1drive" class="form-control" name="rp1drive">
+			</div>
+		</div>				
+		<button class="btn btn-primary" type="submit">Submit</button>
+	</form>
+</div>

@@ -1,0 +1,15 @@
+<div class="container">		
+	<form action="/adddata" method="POST" id="form2">	
+		<legend>add data</legend>
+		<div class="form-group"><label for="ffselect" name="ffselect">select FF</label><select name="selectff" id="selectff" class="form-control">
+			{{#each firefighter}}
+				<option value="{{this.name}}">{{this.name}}</option>
+			{{/each}}
+		</select></div>
+		<div class="row">
+			<div class="col-sm-6 form-group"><label for="ap1drive">Bronto Driver</label><input type="text" id="ap1drive" class="form-control" name="ap1drive"></div>
+			<div class="col-sm-6 form-group"><label for="ap1offside">Bronto Offsider</label><input type="text" id="ap1offside" class="form-control" name="ap1offside"></div>
+		</div>
+		<button class="btn btn-primary" type="submit">Submit</button>
+	</form>
+</div>

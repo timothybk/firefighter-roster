@@ -74,9 +74,134 @@ app.get("/adddata", function (req, res) {
     })
 })
 
+app.get("/adddriver", function (req, res) {
+    var MongoClient = mongodb.MongoClient;
+
+    var url = "mongodb://localhost:27017/ffers";
+
+    MongoClient.connect(url, function(err, db) {
+        if (err) {
+            console.log("unable to connect to server", err);
+        } else {
+            console.log("connection established");
+
+            var collection = db.collection("ffdetails");
+
+            collection.find({'md': true}).toArray(function(err, result) {
+                if (err) {
+                    res.send(err);
+                } else if (result.length) {
+                    res.render("adddriver", {
+                        firefighter: result
+                    });
+                } else {
+                    res.send("No docs found");
+                }
+
+                db.close();
+            })
+        }
+    })
+})
+
+app.get("/addrescue", function (req, res) {
+    var MongoClient = mongodb.MongoClient;
+
+    var url = "mongodb://localhost:27017/ffers";
+
+    MongoClient.connect(url, function(err, db) {
+        if (err) {
+            console.log("unable to connect to server", err);
+        } else {
+            console.log("connection established");
+
+            var collection = db.collection("ffdetails");
+
+            collection.find({'rescue': true}).toArray(function(err, result) {
+                if (err) {
+                    res.send(err);
+                } else if (result.length) {
+                    res.render("addrescue", {
+                        firefighter: result
+                    });
+                } else {
+                    res.send("No docs found");
+                }
+
+                db.close();
+            })
+        }
+    })
+})
+
+app.get("/addbronto", function (req, res) {
+    var MongoClient = mongodb.MongoClient;
+
+    var url = "mongodb://localhost:27017/ffers";
+
+    MongoClient.connect(url, function(err, db) {
+        if (err) {
+            console.log("unable to connect to server", err);
+        } else {
+            console.log("connection established");
+
+            var collection = db.collection("ffdetails");
+
+            collection.find({'aerial': true}).toArray(function(err, result) {
+                if (err) {
+                    res.send(err);
+                } else if (result.length) {
+                    res.render("addbronto", {
+                        firefighter: result
+                    });
+                } else {
+                    res.send("No docs found");
+                }
+
+                db.close();
+            })
+        }
+    })
+})
+
 app.get(/\d{6}|\d{4}/, function (req, res) {
-	res.render("individual");
-});
+	var rawString = req.url;
+    var string = rawString.substring(1);
+    var toFind = parseInt(string);
+    var MongoClient = mongodb.MongoClient;
+
+    var url = "mongodb://localhost:27017/ffers";
+
+    MongoClient.connect(url, function(err, db) {
+        if (err) {
+            console.log("cannot access ff")
+        } else {
+            console.log("Connection established");
+
+            var collection = db.collection("ffdetails");
+
+            collection.findOne({ "number": toFind }, { "_id": 0 }, function(err, results) {
+                if (err) {
+                    console.log(err)
+                } else {
+
+                    res.render("individual", { number: results.number, name: results.name });
+
+
+
+                }
+            })
+
+
+
+
+            db.close();
+
+        }
+    })
+
+
+})
 
 app.get("/shifts", function (req, res) {
 	res.render("shifts");
@@ -152,8 +277,40 @@ app.post("/addff", function(req, res) {
 })
 
 app.post("/adddata", function (req, res) {
-	// add update for the embeded document
-})
+	var MongoClient = mongodb.MongoClient;
+
+    var url = "mongodb://localhost:27017/ffers";
+
+    MongoClient.connect(url, function(err, db) {
+        if (err) {
+            console.log("Cant post to database", err)
+        } else {
+            console.log("Connection established");
+
+            var collection = db.collection("ffdetails");
+
+            var toFind = req.body.selectff;
+
+            collection.update(
+                {'name': toFind},
+                {$set: {'genduty':{
+                'fly1': parseInt(req.body.fly1data),
+                'fly2': parseInt(req.body.fly2data),
+                'fly3': parseInt(req.body.fly3data),
+                'run1': parseInt(req.body.run1data),
+                'run2': parseInt(req.body.run2data),
+                'run3': parseInt(req.body.run3data),
+                'rp1': parseInt(req.body.rp1data),
+                'spare': parseInt(req.body.sparedata)
+            }}}, function (err, result) {
+                if (err) throw err
+                db.close();
+                res.render("firefighterlist")
+            })
+        }
+    })
+});
+
 
 // custom 404 page
 app.use(function(req, res) {
