@@ -288,8 +288,10 @@ app.post("/adddata", function (req, res) {
             console.log("Connection established");
 
             var collection = db.collection("ffdetails");
-
-            var toFind = req.body.selectff;
+		var toFind = req.body.selectff;
+		
+		
+		if (req.body.genForm){       
 
             collection.update(
                 {'name': toFind},
@@ -307,6 +309,52 @@ app.post("/adddata", function (req, res) {
                 db.close();
                 res.render("firefighterlist")
             })
+		}
+		else if (req.body.driverForm){
+			collection.update(
+                	{'name': toFind},
+			{$set: {'driverData':{
+			'flydrive': parseInt(req.body.flydrive),
+			'rundrive': parseInt(req.body.rundrive),
+			'rp1drive': parseInt(req.body.rp1drive)			
+		    }}}, function (err, result) {
+			if (err) throw err
+			db.close();
+			res.render("firefighterlist")
+            })
+			
+		}
+		else if (req.body.rescueForm){
+			collection.update(
+                	{'name': toFind},
+			{$set: {'rescueData':{
+			'rp1rop1': parseInt(req.body.rp1rop1),
+			'rp1rop2': parseInt(req.body.rp1rop2),
+			's1drive': parseInt(req.body.s1drive),
+			's1offside': parseInt(req.body.s1offside)
+		    }}}, function (err, result) {
+			if (err) throw err
+			db.close();
+			res.render("firefighterlist")
+            })
+		}
+		else if (req.body.brontoForm){
+			collection.update(
+                	{'name': toFind},
+			{$set: {'brontoData':{
+			'ap1drive': parseInt(req.body.ap1drive),
+			'ap1offside': parseInt(req.body.ap1offside)
+		    }}}, function (err, result) {
+			if (err) throw err
+			db.close();
+			res.render("firefighterlist")
+            })
+		}
+		else{
+			db.close();
+			res.send("no form found")
+		}
+	
         }
     })
 });
