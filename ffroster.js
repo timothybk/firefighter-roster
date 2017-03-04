@@ -352,7 +352,7 @@ app.post("/adddata", function (req, res) {
 		}
 		else{
 			db.close();
-			res.send("no form found")
+			res.send(req.body)
 		}
 	
         }
