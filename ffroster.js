@@ -288,7 +288,7 @@ app.post("/adddata", function (req, res) {
             console.log("Connection established");
 
             var collection = db.collection("ffdetails");
-		var toFind = req.body.selectff;
+		var toFind = req.body.ffselect;
 		
 		
 		if (req.body.fly1data || req.body.fly2data || req.body.fly3data || 
@@ -307,6 +307,7 @@ app.post("/adddata", function (req, res) {
                 'spare': parseInt(req.body.sparedata, 10)
             }}}, function (err, result) {
                 if (err) throw err
+		   console.log(collection.findOne({"name": toFind});
                 db.close();
                 res.redirect("adddata")
             })
@@ -320,8 +321,8 @@ app.post("/adddata", function (req, res) {
 			'rp1drive': parseInt(req.body.rp1drive, 10)			
 		    }}}, function (err, result) {
 			if (err) throw err
-			db.close();
-			res.redirect("adddriver")
+			    res.send(collection.findOne({"name": toFind})
+			    db.close();
             })
 			
 		}
@@ -336,8 +337,8 @@ app.post("/adddata", function (req, res) {
 			's1offside': parseInt(req.body.s1offside, 10)
 		    }}}, function (err, result) {
 			if (err) throw err
-			db.close();
-			res.redirect("addrescue")
+			 res.send(collection.findOne({"name": toFind})
+			    db.close();
             })
 		}
 		else if (req.body.ap1drive || req.body.ap1offside){
@@ -348,8 +349,8 @@ app.post("/adddata", function (req, res) {
 			'ap1offside': parseInt(req.body.ap1offside, 10)
 		    }}}, function (err, result) {
 			if (err) throw err
-			db.close();
-			res.redirect("addbronto")
+			 res.send(collection.findOne({"name": toFind})
+			    db.close();
             })
 		}
 		else{
