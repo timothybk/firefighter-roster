@@ -307,7 +307,7 @@ app.post("/adddata", function (req, res) {
                 'spare': parseInt(req.body.sparedata, 10)
             }}}, function (err, result) {
                 if (err) throw err
-		   console.log(collection.findOne({"name": toFind});
+		   console.log(collection.findOne({"name": toFind}));
                 db.close();
                 res.redirect("adddata")
             })
@@ -321,7 +321,7 @@ app.post("/adddata", function (req, res) {
 			'rp1drive': parseInt(req.body.rp1drive, 10)			
 		    }}}, function (err, result) {
 			if (err) throw err
-			    res.send(collection.findOne({"name": toFind})
+			    res.send(collection.findOne({"name": toFind}));
 			    db.close();
             })
 			
@@ -337,7 +337,7 @@ app.post("/adddata", function (req, res) {
 			's1offside': parseInt(req.body.s1offside, 10)
 		    }}}, function (err, result) {
 			if (err) throw err
-			 res.send(collection.findOne({"name": toFind})
+			 res.send(collection.findOne({"name": toFind}));
 			    db.close();
             })
 		}
@@ -349,7 +349,7 @@ app.post("/adddata", function (req, res) {
 			'ap1offside': parseInt(req.body.ap1offside, 10)
 		    }}}, function (err, result) {
 			if (err) throw err
-			 res.send(collection.findOne({"name": toFind})
+			 res.send(collection.findOne({"name": toFind}));
 			    db.close();
             })
 		}
