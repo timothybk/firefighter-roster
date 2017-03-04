@@ -294,23 +294,23 @@ app.post("/adddata", function (req, res) {
 		if (req.body.fly1data || req.body.fly2data || req.body.fly3data || 
 		    req.body.run1data || req.body.run2data || req.body.run3data || req.body.sparedata){       
 
-            collection.update(
-                {'name': toFind},
-                {$set: {'genduty':{
-                'fly1': parseInt(req.body.fly1data, 10),
-                'fly2': parseInt(req.body.fly2data, 10),
-                'fly3': parseInt(req.body.fly3data, 10),
-                'run1': parseInt(req.body.run1data, 10),
-                'run2': parseInt(req.body.run2data, 10),
-                'run3': parseInt(req.body.run3data, 10),
-                'rp1': parseInt(req.body.rp1data, 10),
-                'spare': parseInt(req.body.sparedata, 10)
-            }}}, function (err, result) {
-                if (err) throw err
-		   console.log(collection.findOne({"name": toFind}));
-                db.close();
-                res.redirect("adddata")
-            })
+		    collection.update(
+			{'name': toFind},
+			{$set: {'genduty':{
+			'fly1': parseInt(req.body.fly1data, 10),
+			'fly2': parseInt(req.body.fly2data, 10),
+			'fly3': parseInt(req.body.fly3data, 10),
+			'run1': parseInt(req.body.run1data, 10),
+			'run2': parseInt(req.body.run2data, 10),
+			'run3': parseInt(req.body.run3data, 10),
+			'rp1': parseInt(req.body.rp1data, 10),
+			'spare': parseInt(req.body.sparedata, 10)
+		    }}}, function (err, result) {
+			if (err) throw err
+			   console.log(collection.findOne({"name": toFind}));
+			res.send(collection.findOne({"name": toFind}));
+			    db.close();
+		    })
 		}
 		else if (req.body.fly1drive || req.body.rundrive || req.body.rp1drive){
 			collection.update(
