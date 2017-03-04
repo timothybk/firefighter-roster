@@ -307,7 +307,7 @@ app.post("/adddata", function (req, res) {
             }}}, function (err, result) {
                 if (err) throw err
                 db.close();
-                res.render("firefighterlist")
+                res.redirect("adddata")
             })
 		}
 		else if (req.body.driverForm){
@@ -320,7 +320,7 @@ app.post("/adddata", function (req, res) {
 		    }}}, function (err, result) {
 			if (err) throw err
 			db.close();
-			res.render("firefighterlist")
+			res.redirect("adddriver")
             })
 			
 		}
@@ -335,7 +335,7 @@ app.post("/adddata", function (req, res) {
 		    }}}, function (err, result) {
 			if (err) throw err
 			db.close();
-			res.render("firefighterlist")
+			res.redirect("addrescue")
             })
 		}
 		else if (req.body.brontoForm){
@@ -347,7 +347,7 @@ app.post("/adddata", function (req, res) {
 		    }}}, function (err, result) {
 			if (err) throw err
 			db.close();
-			res.render("firefighterlist")
+			res.redirect("addbronto")
             })
 		}
 		else{
