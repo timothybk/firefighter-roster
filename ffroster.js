@@ -291,32 +291,33 @@ app.post("/adddata", function (req, res) {
 		var toFind = req.body.selectff;
 		
 		
-		if (req.body.genForm){       
+		if (req.body.fly1data || req.body.fly2data || req.body.fly3data || 
+		    req.body.run1data || req.body.run2data || req.body.run3data || req.body.sparedata){       
 
             collection.update(
                 {'name': toFind},
                 {$set: {'genduty':{
-                'fly1': parseInt(req.body.fly1data),
-                'fly2': parseInt(req.body.fly2data),
-                'fly3': parseInt(req.body.fly3data),
-                'run1': parseInt(req.body.run1data),
-                'run2': parseInt(req.body.run2data),
-                'run3': parseInt(req.body.run3data),
-                'rp1': parseInt(req.body.rp1data),
-                'spare': parseInt(req.body.sparedata)
+                'fly1': parseInt(req.body.fly1data, 10),
+                'fly2': parseInt(req.body.fly2data, 10),
+                'fly3': parseInt(req.body.fly3data, 10),
+                'run1': parseInt(req.body.run1data, 10),
+                'run2': parseInt(req.body.run2data, 10),
+                'run3': parseInt(req.body.run3data, 10),
+                'rp1': parseInt(req.body.rp1data, 10),
+                'spare': parseInt(req.body.sparedata, 10)
             }}}, function (err, result) {
                 if (err) throw err
                 db.close();
                 res.redirect("adddata")
             })
 		}
-		else if (req.body.driverForm){
+		else if (req.body.fly1drive || req.body.rundrive || req.body.rp1drive){
 			collection.update(
                 	{'name': toFind},
 			{$set: {'driverData':{
-			'flydrive': parseInt(req.body.flydrive),
-			'rundrive': parseInt(req.body.rundrive),
-			'rp1drive': parseInt(req.body.rp1drive)			
+			'flydrive': parseInt(req.body.flydrive, 10),
+			'rundrive': parseInt(req.body.rundrive, 10),
+			'rp1drive': parseInt(req.body.rp1drive, 10)			
 		    }}}, function (err, result) {
 			if (err) throw err
 			db.close();
@@ -324,26 +325,27 @@ app.post("/adddata", function (req, res) {
             })
 			
 		}
-		else if (req.body.rescueForm){
+		else if (req.body.rp1rop1 || req.body.rp1rop2 || 
+			 req.body.s1drive || req.body.s1offside){
 			collection.update(
                 	{'name': toFind},
 			{$set: {'rescueData':{
-			'rp1rop1': parseInt(req.body.rp1rop1),
-			'rp1rop2': parseInt(req.body.rp1rop2),
-			's1drive': parseInt(req.body.s1drive),
-			's1offside': parseInt(req.body.s1offside)
+			'rp1rop1': parseInt(req.body.rp1rop1, 10),
+			'rp1rop2': parseInt(req.body.rp1rop2, 10),
+			's1drive': parseInt(req.body.s1drive, 10),
+			's1offside': parseInt(req.body.s1offside, 10)
 		    }}}, function (err, result) {
 			if (err) throw err
 			db.close();
 			res.redirect("addrescue")
             })
 		}
-		else if (req.body.brontoForm){
+		else if (req.body.ap1drive || req.body.ap1offside){
 			collection.update(
                 	{'name': toFind},
 			{$set: {'brontoData':{
-			'ap1drive': parseInt(req.body.ap1drive),
-			'ap1offside': parseInt(req.body.ap1offside)
+			'ap1drive': parseInt(req.body.ap1drive, 10),
+			'ap1offside': parseInt(req.body.ap1offside, 10)
 		    }}}, function (err, result) {
 			if (err) throw err
 			db.close();
