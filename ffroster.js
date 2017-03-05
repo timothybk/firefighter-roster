@@ -3,19 +3,19 @@ var app = express();
 var mongodb = require("mongodb")
 var bodyParser = require("body-parser")
 
-var handlebars = require("express-handlebars").create({defaultLayout:"main"});
+var handlebars = require("express-handlebars").create({ defaultLayout: "main" });
 app.engine("handlebars", handlebars.engine);
 app.set("view engine", "handlebars");
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false}));
+app.use(bodyParser.urlencoded({ extended: false }));
 
 app.set('port', process.env.PORT || 3000);
 
 app.use(express.static(__dirname + "/public"));
 
-app.get('/list', function(req, res){
- var MongoClient = mongodb.MongoClient;
+app.get('/list', function(req, res) {
+    var MongoClient = mongodb.MongoClient;
 
     var url = "mongodb://localhost:27017/ffers";
 
@@ -27,7 +27,7 @@ app.get('/list', function(req, res){
 
             var collection = db.collection("ffdetails");
 
-            collection.find().sort({"rank": -1, "number": 1}).toArray(function(err, result) {
+            collection.find().sort({ "rank": -1, "number": 1 }).toArray(function(err, result) {
                 if (err) {
                     res.send(err);
                 } else if (result.length) {
@@ -44,8 +44,8 @@ app.get('/list', function(req, res){
     })
 })
 
-app.get("/adddata", function (req, res) {
-	var MongoClient = mongodb.MongoClient;
+app.get("/adddata", function(req, res) {
+    var MongoClient = mongodb.MongoClient;
 
     var url = "mongodb://localhost:27017/ffers";
 
@@ -74,7 +74,7 @@ app.get("/adddata", function (req, res) {
     })
 })
 
-app.get("/adddriver", function (req, res) {
+app.get("/adddriver", function(req, res) {
     var MongoClient = mongodb.MongoClient;
 
     var url = "mongodb://localhost:27017/ffers";
@@ -87,7 +87,7 @@ app.get("/adddriver", function (req, res) {
 
             var collection = db.collection("ffdetails");
 
-            collection.find({'md': true}).toArray(function(err, result) {
+            collection.find({ 'md': true }).toArray(function(err, result) {
                 if (err) {
                     res.send(err);
                 } else if (result.length) {
@@ -104,7 +104,7 @@ app.get("/adddriver", function (req, res) {
     })
 })
 
-app.get("/addrescue", function (req, res) {
+app.get("/addrescue", function(req, res) {
     var MongoClient = mongodb.MongoClient;
 
     var url = "mongodb://localhost:27017/ffers";
@@ -117,7 +117,7 @@ app.get("/addrescue", function (req, res) {
 
             var collection = db.collection("ffdetails");
 
-            collection.find({'rescue': true}).toArray(function(err, result) {
+            collection.find({ 'rescue': true }).toArray(function(err, result) {
                 if (err) {
                     res.send(err);
                 } else if (result.length) {
@@ -134,7 +134,7 @@ app.get("/addrescue", function (req, res) {
     })
 })
 
-app.get("/addbronto", function (req, res) {
+app.get("/addbronto", function(req, res) {
     var MongoClient = mongodb.MongoClient;
 
     var url = "mongodb://localhost:27017/ffers";
@@ -147,7 +147,7 @@ app.get("/addbronto", function (req, res) {
 
             var collection = db.collection("ffdetails");
 
-            collection.find({'aerial': true}).toArray(function(err, result) {
+            collection.find({ 'aerial': true }).toArray(function(err, result) {
                 if (err) {
                     res.send(err);
                 } else if (result.length) {
@@ -164,8 +164,8 @@ app.get("/addbronto", function (req, res) {
     })
 })
 
-app.get(/\d{6}|\d{4}/, function (req, res) {
-	var rawString = req.url;
+app.get(/\d{6}|\d{4}/, function(req, res) {
+    var rawString = req.url;
     var string = rawString.substring(1);
     var toFind = parseInt(string);
     var MongoClient = mongodb.MongoClient;
@@ -201,22 +201,55 @@ app.get(/\d{6}|\d{4}/, function (req, res) {
     })
 
 
+});
+
+app.get("/preferences", function (req, res) {
+    var MongoClient = mongodb.MongoClient;
+
+    var url = "mongodb://localhost:27017/ffers";
+
+    MongoClient.connect(url, function(err, db) {
+        if (err) {
+            console.log("unable to connect to server", err);
+        } else {
+            console.log("connection established");
+
+            var collection = db.collection("ffdetails");
+
+            collection.find().sort({ "rank": -1, "number": 1 }).toArray(function(err, result) {
+                if (err) {
+                    res.send(err);
+                } else if (result.length) {
+                    for (var i = result.length - 1; i >= 0; i--) {
+                        console.log(result[i].genduty)
+                    }
+                    res.render("firefighterlist", {
+                        firefighter: result
+                    });
+                } else {
+                    res.send("No docs found");
+                }
+
+                db.close();
+            })
+        }
+    })
 })
 
-app.get("/shifts", function (req, res) {
-	res.render("shifts");
+app.get("/shifts", function(req, res) {
+    res.render("shifts");
 });
 
-app.get("/shiftid", function (req, res) {
-	res.render("shiftid");
+app.get("/shiftid", function(req, res) {
+    res.render("shiftid");
 });
 
-app.get('/n2list', function(req, res){
- res.render("n2list");
+app.get('/n2list', function(req, res) {
+    res.render("n2list");
 });
 
-app.get("/newff", function (req, res) {
-	res.render("newff");
+app.get("/newff", function(req, res) {
+    res.render("newff");
 });
 
 app.post("/addff", function(req, res) {
@@ -276,88 +309,96 @@ app.post("/addff", function(req, res) {
     })
 })
 
-app.post("/adddata", function (req, res) {
-	var MongoClient = mongodb.MongoClient;
+app.post("/adddata", function(req, res) {
+    var MongoClient = mongodb.MongoClient;
 
     var url = "mongodb://localhost:27017/ffers";
 
     MongoClient.connect(url, function(err, db) {
         if (err) {
-            console.log("Cant post to database", err)
+            console.log("Cant post to database", err);
         } else {
             console.log("Connection established");
 
             var collection = db.collection("ffdetails");
-		var toFind = req.body.ffselect;
-		
-		
-		if (req.body.fly1data || req.body.fly2data || req.body.fly3data || 
-		    req.body.run1data || req.body.run2data || req.body.run3data || req.body.sparedata){       
+            var toFind = req.body.selectff;
 
-		    collection.update(
-			{'name': toFind},
-			{$set: {'genduty':{
-			'fly1': parseInt(req.body.fly1data, 10),
-			'fly2': parseInt(req.body.fly2data, 10),
-			'fly3': parseInt(req.body.fly3data, 10),
-			'run1': parseInt(req.body.run1data, 10),
-			'run2': parseInt(req.body.run2data, 10),
-			'run3': parseInt(req.body.run3data, 10),
-			'rp1': parseInt(req.body.rp1data, 10),
-			'spare': parseInt(req.body.sparedata, 10)
-		    }}}, function (err, result) {
-			if (err) throw err
-			   console.log(collection.findOne({"name": toFind}));
-			res.send(collection.findOne({"name": toFind}));
-			    db.close();
-		    })
-		}
-		else if (req.body.fly1drive || req.body.rundrive || req.body.rp1drive){
-			collection.update(
-                	{'name': toFind},
-			{$set: {'driverData':{
-			'flydrive': parseInt(req.body.flydrive, 10),
-			'rundrive': parseInt(req.body.rundrive, 10),
-			'rp1drive': parseInt(req.body.rp1drive, 10)			
-		    }}}, function (err, result) {
-			if (err) throw err
-			    res.send(collection.findOne({"name": toFind}));
-			    db.close();
-            })
-			
-		}
-		else if (req.body.rp1rop1 || req.body.rp1rop2 || 
-			 req.body.s1drive || req.body.s1offside){
-			collection.update(
-                	{'name': toFind},
-			{$set: {'rescueData':{
-			'rp1rop1': parseInt(req.body.rp1rop1, 10),
-			'rp1rop2': parseInt(req.body.rp1rop2, 10),
-			's1drive': parseInt(req.body.s1drive, 10),
-			's1offside': parseInt(req.body.s1offside, 10)
-		    }}}, function (err, result) {
-			if (err) throw err
-			 res.send(collection.findOne({"name": toFind}));
-			    db.close();
-            })
-		}
-		else if (req.body.ap1drive || req.body.ap1offside){
-			collection.update(
-                	{'name': toFind},
-			{$set: {'brontoData':{
-			'ap1drive': parseInt(req.body.ap1drive, 10),
-			'ap1offside': parseInt(req.body.ap1offside, 10)
-		    }}}, function (err, result) {
-			if (err) throw err
-			 res.send(collection.findOne({"name": toFind}));
-			    db.close();
-            })
-		}
-		else{
-			db.close();
-			res.send(req.body)
-		}
-	
+
+            if (req.body.fly1data || req.body.fly2data || req.body.fly3data ||
+                req.body.run1data || req.body.run2data || req.body.run3data || req.body.sparedata) {
+
+                collection.update({ 'name': toFind }, {
+                    $set: {
+                        'genduty': {
+                            'fly1': parseInt(req.body.fly1data, 10),
+                            'fly2': parseInt(req.body.fly2data, 10),
+                            'fly3': parseInt(req.body.fly3data, 10),
+                            'run1': parseInt(req.body.run1data, 10),
+                            'run2': parseInt(req.body.run2data, 10),
+                            'run3': parseInt(req.body.run3data, 10),
+                            'rp1': parseInt(req.body.rp1data, 10),
+                            'spare': parseInt(req.body.sparedata, 10)
+                        }
+                    }
+                }, function(err, result) {
+                    if (err) throw err;
+                    console.log(err);
+                    console.log(toFind)
+                    res.redirect("adddata")
+                    db.close();
+                })
+            } else if (req.body.fly1drive || req.body.rundrive || req.body.rp1drive) {
+                collection.update({ 'name': toFind }, {
+                    $set: {
+                        'driverData': {
+                            'flydrive': parseInt(req.body.flydrive, 10),
+                            'rundrive': parseInt(req.body.rundrive, 10),
+                            'rp1drive': parseInt(req.body.rp1drive, 10)
+                        }
+                    }
+                }, function(err, result) {
+                    if (err) throw err
+                    console.log(toFind)
+                    res.redirect("adddriver");
+                    db.close();
+                })
+
+            } else if (req.body.rp1rop1 || req.body.rp1rop2 ||
+                req.body.s1drive || req.body.s1offside) {
+                collection.update({ 'name': toFind }, {
+                    $set: {
+                        'rescueData': {
+                            'rp1rop1': parseInt(req.body.rp1rop1, 10),
+                            'rp1rop2': parseInt(req.body.rp1rop2, 10),
+                            's1drive': parseInt(req.body.s1drive, 10),
+                            's1offside': parseInt(req.body.s1offside, 10)
+                        }
+                    }
+                }, function(err, result) {
+                    if (err) throw err
+                    console.log(toFind)
+                    res.redirect("addrescue")
+                    db.close();
+                })
+            } else if (req.body.ap1drive || req.body.ap1offside) {
+                collection.update({ 'name': toFind }, {
+                    $set: {
+                        'brontoData': {
+                            'ap1drive': parseInt(req.body.ap1drive, 10),
+                            'ap1offside': parseInt(req.body.ap1offside, 10)
+                        }
+                    }
+                }, function(err, result) {
+                    if (err) throw err
+                    console.log(toFind)
+                    res.redirect("addbronto");
+                    db.close();
+                })
+            } else {
+                db.close();
+                res.send(req.body)
+            }
+
         }
     })
 });
